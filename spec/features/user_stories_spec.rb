@@ -11,6 +11,7 @@ describe 'These are all the user stories' do
 	it 'so planes land at airport, instruct a plane to land' do
 		airport = Airport.new(20)
 		plane = Plane.new
+		allow(airport).to receive(:stormy?).and_return false  #stubbing out randomness
 		expect{airport.land(plane)}.not_to raise_error #null test
 	end
 
@@ -37,16 +38,28 @@ describe 'These are all the user stories' do
 	it 'does not allow planes to land when airport is full' do
 		airport = Airport.new(20)
 		plane = Plane.new
+		allow(airport).to receive(:stormy?).and_return false  #stubbing out randomness
 		20.times do
 			airport.land(plane)
 		end
 		expect{airport.land(plane)}.to raise_error 'Cannot land plane: airport full' 
 	end
-end
 
 ## ?? ## at point args failed, I would have fixed by using a constant (wtih a capacity value) vs updating all new instances (and methods using new instances) with (20)!
 
+# User Story 3
+##############
+# As an air traffic controller 
+# So I can avoid accidents
+# I want to prevent airplanes taking off or landing when the weather is stormy.
 
+	it 'does not allow planes to land when stormy' do
+		airport = Airport.new(20)
+		plane = Plane.new
+		allow(airport).to receive(:stormy?).and_return true #stubbing out randomness
+		expect{airport.land(plane)}.to raise_error 'Cannot land plane: weather is stormy'
+	end
 
+end
 
 
