@@ -14,8 +14,8 @@ describe 'These are all the user stories' do
 # User Story 1
 ##############
 # As an air traffic controller 
-# So I can get passengers to a destination 
-# I want to instruct a plane to land #(at an airport and confirm that it has landed)
+# So planes can land safely at my airport 
+# I want to instruct a plane to land 
 
 		it 'so planes land at airport, instruct a plane to land' do
 			expect{airport.land(plane)}.not_to raise_error #null test
@@ -27,10 +27,21 @@ describe 'These are all the user stories' do
 # So planes can take off safely from my airport
 # I would like to instruct a plane to take off
 
-## ?? ## I want to code 'instruct - by whom to whom' and 'safely - some measure' and 'from an airport'...!!
-
 		it 'so planes take off from airports, instruct a plane to take off' do
+			airport.land(plane)  #land plane first so we have at least 1 plane in the array
 			expect{airport.take_off(plane)}.not_to raise_error 
+		end
+
+# User Story 5
+##############
+# As an air traffic controller
+# So that I can ensure safe take off procedures
+# I would like to instruct a plane to take off
+
+		it 'takes off planes only from the airport they are at' do
+			airport_2 = Airport.new(20, Weather.new)
+			airport_2.land(plane)
+			expect{airport.take_off(plane)}.to raise_error 'Cannot take off plane: plane not at this airport'
 		end
 
 # User Story 3
