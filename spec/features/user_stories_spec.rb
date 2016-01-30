@@ -2,7 +2,7 @@ require 'airport'
 
 describe 'These are all the user stories' do
 
-	let(:airport) {Airport.new(20, weather)}
+	let(:airport) {Airport.new(weather, 20)}
 	let(:plane) {Plane.new}
 	let(:weather) {Weather.new}
 
@@ -39,10 +39,24 @@ describe 'These are all the user stories' do
 # I would like to instruct a plane to take off
 
 		it 'takes off planes only from the airport they are at' do
-			airport_2 = Airport.new(20, Weather.new)
+			airport_2 = Airport.new(weather, 20)
 			airport_2.land(plane)
 			expect{airport.take_off(plane)}.to raise_error 'Cannot take off plane: plane not at this airport'
 		end
+
+# User Story 6
+##############
+# As the system designer
+# So that the software can be used for many different airports
+# I would like a default airport capacity that can be overriden as appropriate
+
+		it 'airports have a default capacity' do
+			default_airport = Airport.new(weather)
+			Airport::DEFAULT_CAPACITY.times {default_airport.land(plane)}
+			expect {default_airport.land(plane)}.to raise_error 'Cannot land plane: airport full'
+
+		end
+
 
 # User Story 3
 ##############
@@ -62,7 +76,7 @@ describe 'These are all the user stories' do
 
 ## ?? ## at point args failed, I would have fixed by using a constant (wtih a capacity value) vs updating all new instances (and methods using new instances) with (20)!
 
-# User Story 3
+# User Story 4
 ##############
 # As an air traffic controller 
 # So I can avoid accidents
@@ -84,4 +98,5 @@ end
 		end
 	end
 end
+
 
