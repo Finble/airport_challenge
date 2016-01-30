@@ -50,9 +50,13 @@ describe Airport do
 				allow(weather).to receive(:stormy?).and_return false  #stubbing out randomness
 			end
 
-
 			it 'instructs a plane to take off' do
 			expect(subject).to respond_to(:take_off).with(1).argument
+			end
+
+			it 'returns the plane that took off' do
+				airport.land(plane)
+				expect(airport.take_off(plane)).to eq plane
 			end
 
 			it 'rasies an error if plane is not at this airport' do
