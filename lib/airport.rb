@@ -1,7 +1,10 @@
+require 'Weather'
+
 class Airport
 
-	def initialize(capacity)	
-		@capacity = capacity	
+	def initialize(capacity, weather)	
+		@capacity = capacity
+		@weather = weather
 		@planes = []
 	end
 
@@ -22,7 +25,8 @@ class Airport
 	end
 
 	def stormy?
-		rand(1..6) > 4  # randomly selects 1/3 of the time (5 + 6 /4 = true, 2/16 = 1/3)
+		@weather.stormy?
 	end
+
 end
 

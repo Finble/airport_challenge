@@ -2,15 +2,16 @@ require 'airport'
 
 describe Airport do
 
-	subject(:airport) {described_class.new(20)}  # subject = new class of described class, which is Airport
+	subject(:airport) {described_class.new(20, weather)}  # subject = new class of described class, which is Airport
 	let(:plane) {double (:plane)}  #declare variable at top of tests, vs within each test
+	let(:weather) {double (:weather)}
 
 	describe '#land' do
 
 		context 'when not stormy' do
 
 			before do 
-				allow(airport).to receive(:stormy?).and_return false  #stubbing out randomness
+				allow(weather).to receive(:stormy?).and_return false  #stubbing out randomness
 			end
 
 			it 'instructs a plane to land' do			
@@ -33,7 +34,7 @@ describe Airport do
 		context 'when stormy' do
 
 			before do
-				allow(airport).to receive(:stormy?).and_return true  #stubbing out randomness
+				allow(weather).to receive(:stormy?).and_return true  #stubbing out randomness
 			end
 
 			it 'raises an error if asked to land a plane' do	
@@ -52,7 +53,7 @@ describe Airport do
 		context 'when stormy' do
 
 			before do
-				allow(airport).to receive(:stormy?).and_return true  #stubbing out randomness
+				allow(weather).to receive(:stormy?).and_return true  #stubbing out randomness
 			end
 
 			it 'raises an error if asked to land a plane' do	

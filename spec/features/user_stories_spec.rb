@@ -2,12 +2,13 @@ require 'airport'
 
 describe 'These are all the user stories' do
 
-	let(:airport) {Airport.new(20)}
+	let(:airport) {Airport.new(20, weather)}
 	let(:plane) {Plane.new}
+	let(:weather) {Weather.new}
 
 	context 'when not stormy' do
 		before do
-			allow(airport).to receive(:stormy?).and_return false  #stubbing out randomness
+			allow(weather).to receive(:stormy?).and_return false  #stubbing out randomness
 		end
 
 # User Story 1
@@ -60,7 +61,7 @@ end
 	context 'when weather is stormy' do
 
 		before do
-			allow(airport).to receive(:stormy?).and_return true #stubbing out randomness
+			allow(weather).to receive(:stormy?).and_return true #stubbing out randomness
 		end
 
 		it 'does not allow planes to land' do
@@ -72,5 +73,4 @@ end
 		end
 	end
 end
-
 
